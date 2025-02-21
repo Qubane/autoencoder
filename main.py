@@ -50,6 +50,24 @@ def main():
                     shuffle=True,
                     validation_data=(x_test, x_test))
 
+    encoded_img = autoencoder.encoder(x_test).numpy()
+    decoded_img = autoencoder.decoder(encoded_img).numpy()
+
+    count = 6
+    plt.figure(figsize=(8, 4))
+    for i in range(count):
+        ax = plt.subplot(2, count, i + 1)
+        plt.imshow(x_test[i])
+        plt.title("orig")
+        plt.gray()
+
+        # display reconstruction
+        ax = plt.subplot(2, count, i + 1 + count)
+        plt.imshow(decoded_img[i])
+        plt.title("recon")
+        plt.gray()
+    plt.show()
+
 
 if __name__ == '__main__':
     main()
