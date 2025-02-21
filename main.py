@@ -23,7 +23,7 @@ class SimpleAutoencoder(tf.keras.models.Model):
         ])
 
         self.decoder = tf.keras.Sequential([
-            tf.keras.layers.Dense(tf.math.reduce_prod(data_shape), activation='sigmoid'),
+            tf.keras.layers.Dense(tf.math.reduce_prod(data_shape).numpy(), activation='sigmoid'),
             tf.keras.layers.Reshape(data_shape)
         ])
 
@@ -38,6 +38,17 @@ def main():
 
     x_train = x_train.astype("float32") / 255
     x_test = x_test.astype("float32") / 255
+
+    input_shape = x_test.shape[1:]
+    dimensions = 64
+
+    autoencoder = SimpleAutoencoder(dimensions, input_shape)
+    autoencoder.compile(optimizer='adam', loss=tf.keras.losses.MeanSquaredError())
+
+    autoencoder.fit(x_train, x_train,
+                    epochs=1,
+                    shuffle=True,
+                    validation_data=(x_test, x_test))
 
 
 if __name__ == '__main__':
