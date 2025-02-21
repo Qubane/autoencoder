@@ -64,7 +64,6 @@ def main():
         plt.title("orig")
         plt.gray()
 
-        # display reconstruction
         ax = plt.subplot(2, count, i + 1 + count)
         plt.imshow(decoded_img[i])
         plt.title("recon")
