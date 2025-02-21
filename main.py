@@ -4,6 +4,9 @@ Main python file
 
 
 import os
+
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+
 import numpy as np
 import pandas as pd
 import tensorflow as tf
